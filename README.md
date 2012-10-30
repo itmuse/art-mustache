@@ -1,4 +1,4 @@
-at-mustache
+art-mustache
 ===========
 
 A simple syntax template engine
