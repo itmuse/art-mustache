@@ -32,9 +32,9 @@ Art Mustache is not a new programming language itself, but uses native language(
             
             if name == 'Hyson':
                 for n in ['hello',name]:
-                    @:<li>@i</li> # @: syntax
+                    @:<li>@n</li> # @: syntax
             else:
-                say_hello('you have no name.')
+                say_hello('world')
          
         }
     
@@ -49,9 +49,9 @@ Art Mustache is not a new programming language itself, but uses native language(
 
     It is no need to open or close code blocks to write HTML inside a page. If you want to add a code instruction inside HTML, you will need to use ‘@’ before the code:
 
-    @if status == 1{
+    @if status == 1 {
         <span>Hello,what's are you doing?</span>
-    }@elif status == 1{
+    }@elif status == 2 {
         <span>Hello guy,do you like a simple template engine?</span>
     }@else{
         <span>I am sorry to that.</span>
