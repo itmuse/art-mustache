@@ -5,7 +5,7 @@ Art Mustache
 
 Art Mustache was designed as an easy to learn, compact and expressive template engine that enables a fluid coding workflow.
 
-Art Mustache is not a new programming language itself, but uses native language(just like python) syntax for having code
+Art Mustache is not a new programming language itself, but uses native language(just like python) syntax for having code.
 
 ##ArtMustache Syntax
 
@@ -14,19 +14,19 @@ Before getting introduced to Art Mustache you should first know some simple rule
 1. '@' is the magic character that precedes code instructions in the following contexts:
     1. '@' For a single code line/values:
     A single code line inside the markup:
-    ```
+    ```html
     <p>Hello @variable</p>
     ```
     
     2. '@{...}' For a single code line/python code:
-    ```
+    ```html
     @{my_name = 'I am art mustache.'}
     @{status = True}
     @{my_name = 'art mustache' if status else 'no art mustache'}
     ```
     
     3. '@{...}' For code blocks with multiple lines:
-    ```
+    ```python
     @{
         def say_hello(name):
             return 'hello %s' % name
@@ -45,7 +45,7 @@ Before getting introduced to Art Mustache you should first know some simple rule
     
     4. '@:' For single plain text to be rendered in '@{}' in the template
     
-    ```
+    ```python
     @{
         for i in range(10):
             @:this is a single plain text,this is @i line.
@@ -55,7 +55,7 @@ Before getting introduced to Art Mustache you should first know some simple rule
 
 It is no need to open or close code blocks to write HTML inside a page. If you want to add a code instruction inside HTML, you will need to use ‘@’ before the code:
 
-```
+```html
 @{your_name = 'geeker'}
 
 @def func(name){
@@ -97,12 +97,10 @@ It is no need to open or close code blocks to write HTML inside a page. If you w
 }@except Exception as e{
     <span><b style="color:red"></b>@e</span>
 }
-
-
 ```
 
 3. How to use Art Mustache
-```
+```python
 tpl = """
        @name
 ~~~~~~~~~~~~~~~~~
