@@ -132,7 +132,7 @@ Before getting introduced to Art Mustache you should first know some simple rule
 	        <li>line @i</li>
 	    }
 	    @say_hello(my_name)
-	    @sya_hello('hello world')
+	    @say_hello('world')
 	    """
 	    t = ArtMustache(tpl)
 	    print t.render(
@@ -141,3 +141,9 @@ Before getting introduced to Art Mustache you should first know some simple rule
 	        )
 
     ```
+    
+##Copyright
+Copyright (c) 2012 Hyson Wu. All rights reserved.
+
+##License
+Art Mustache is [MIT Lisense](http://www.opensource.org/licenses/mit-license.php)
