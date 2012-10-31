@@ -133,7 +133,7 @@ class ArtMustache(object):
                     write('__write_var(%s)' % data[1:], 0)
             elif token_type[0] == 2: # variable in python block code
                 if data:
-                    block_lines.append(','+data+',') # it will be proccess in python block code begin
+                    block_lines.append('$'+data+'$') # it will be proccess in python block code begin
             elif token_type[0] == 3: # python control expression begin
                 if data:
                     data = data[1:-1].replace('\r','').replace('\n','')
@@ -159,7 +159,8 @@ class ArtMustache(object):
                         f_line = block_lines[line_index].lstrip()[2:] # remove @: symbol
                         f_lines = [start_indent,"__write(''.join(map(str,('\\n',"]
 
-                        for fl in f_line.split(','):
+                        print block_lines[line_index]
+                        for fl in f_line.split('$'):
                             if fl.startswith('@'): # if has variable
                                 f_lines.append('__get_var(%s),' % fl[1:])
                             else:
@@ -182,13 +183,13 @@ class ArtMustache(object):
                 write('# single block code end', 0)
         source = '\n'.join(source_lines)
         # print "*"*10+"following is python code"+"*"*10
-        # print source
+        print source
         self.code = compile(source, '<template>', 'exec')
         if return_code:
             return self.code
 
     def tokenize(self, source):
-        vars_p = '\@{1}[\_a-zA-Z]{1}[\w\.\[\]\(\)\'\"]*'
+        vars_p = '\@{1}[\_a-zA-Z]{1}[\w\.\[\]\(\)\'\"\,]*'
         block_p = '\@{1}\{{1}'
         block_single_p = '\@{1}\{{1}[\ \w\.\,\[\]\(\)\<\>\=\!\'\"\+\-\*\/\%]+\}{1}'
         control_p = '\@{1}[a-z]+[\s\w\.\,\[\]\(\)\<\>\=\!\'\"\+\-\*\/\%\:]+\{{1}'
@@ -309,8 +310,11 @@ def test():
     tpl = '''
        @name
     ~~~~~~~~~~~~~~~~~
+    @{import re}
     @{my_name = 'hyson'}
     @{
+        r = re.compile(r'\d+')
+        @:output variable @r.sub('_','Hello12345art321mustache')!@#$%^&*()_+
         def say_hello(name):
             return 'hello'+str(name)
     }
