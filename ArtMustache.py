@@ -133,7 +133,7 @@ class ArtMustache(object):
                     write('__write_var(%s)' % data[1:], 0)
             elif token_type[0] == 2: # variable in python block code
                 if data:
-                    block_lines.append('$'+data+'$') # it will be proccess in python block code begin
+                    block_lines.append('$'+data+'$') # it will be proccess in python block code end
             elif token_type[0] == 3: # python control expression begin
                 if data:
                     data = data[1:-1].replace('\r','').replace('\n','')
@@ -159,7 +159,6 @@ class ArtMustache(object):
                         f_line = block_lines[line_index].lstrip()[2:] # remove @: symbol
                         f_lines = [start_indent,"__write(''.join(map(str,('\\n',"]
 
-                        print block_lines[line_index]
                         for fl in f_line.split('$'):
                             if fl.startswith('@'): # if has variable
                                 f_lines.append('__get_var(%s),' % fl[1:])
@@ -183,7 +182,7 @@ class ArtMustache(object):
                 write('# single block code end', 0)
         source = '\n'.join(source_lines)
         # print "*"*10+"following is python code"+"*"*10
-        print source
+        # print source
         self.code = compile(source, '<template>', 'exec')
         if return_code:
             return self.code
@@ -318,11 +317,22 @@ def test():
         def say_hello(name):
             return 'hello'+str(name)
     }
+    @def fun(name){
+        @{
+            s = 'hello ' + str(name)
+            def fun2(vars):
+                return '<b>'+str(vars)+'</b>'
+        }
+        <h1>@name</h1>
+        <h1>@s</h1>
+        <h1>@fun2(name)</h1>
+    }
     @for i in numbers{
         <li>line @i</li>
+        @{fun(i)}
     }
     @say_hello(my_name)
-    @say_hello('OK')
+    @say_hello('world')
     '''
     t = ArtMustache(tpl)
     print t.render(
