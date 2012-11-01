@@ -283,6 +283,7 @@ class ArtMustache(object):
                 data_is_block_code = True
                 yield token_type[5], tag # python block code begin 
             rest = source[match.end():]
+        print '<rest is %s rest>' % rest
         if remove_newline and rest.startswith('\n'):
             rest = rest[1:]
         if rest:
@@ -333,6 +334,7 @@ def test():
     }
     @say_hello(my_name)
     @say_hello('world')
+    <span> span</span>
     '''
     t = ArtMustache(tpl)
     print t.render(
