@@ -306,6 +306,13 @@ class ArtMustache(object):
         exec self.code in d
         return ''.join(lines)
 
+def AM(source, *args, **kwargs):
+    am = ArtMustache(source)
+    if len(args) == 0 and len(kwargs) == 0:
+        return am.render
+    else:
+        return am.render(args, kwargs)
+
 def test():
     tpl = '''
        @name
@@ -336,8 +343,13 @@ def test():
     @say_hello('world')
     <span> span</span>
     '''
-    t = ArtMustache(tpl)
-    print t.render(
+    # t = ArtMustache(tpl)
+    # print t.render(
+    #     name='Art Mustache',
+    #     numbers=[1,2,3,4,5,6]
+    #     )
+    t = AM(tpl)
+    print t(
         name='Art Mustache',
         numbers=[1,2,3,4,5,6]
         )
